@@ -1,0 +1,102 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "175640133500bcace2": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping available on all orders!",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-1",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "mega",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "index_w3Pwhg": {
+      "type": "index",
+      "blocks": {
+        "gallery_JQARJn": {
+          "type": "gallery",
+          "settings": {
+            "checking": true,
+            "imaging": "shopify:\/\/shop_images\/mini_ad4ff379-1e8d-4f68-8921-8a6b1426ffee.webp",
+            "image_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_JQARJn"
+      ],
+      "disabled": true,
+      "name": "index",
+      "settings": {
+        "textid": "I am hamayon",
+        "checker": true,
+        "text_position": "center",
+        "scahama-image": "shopify:\/\/shop_images\/person-fishing-on-the-beach-is-silhouetted-at-sunset.jpg"
+      }
+    },
+    "17673019766281729b": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "1767302094ce8d8c5a": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "175640133500bcace2",
+    "announcement-bar",
+    "header",
+    "index_w3Pwhg",
+    "17673019766281729b",
+    "1767302094ce8d8c5a"
+  ]
+}

@@ -1,0 +1,103 @@
+
+<div class="title1">{{ page_title }}</div>
+<div class="grid">
+  <div class="grid-container">
+    {% assign myvar = 'this is my variable' %}
+
+    {{ myvar }}
+    <br>
+    {% comment %} my name is hamayon saeed {% endcomment %}
+
+    {% assign num1 = 4500 %}
+    {% assign num2 = 900 %}
+    {% assign num3 = 130 %}
+
+    Addtion = {{ num1 | plus: num2 }}
+    <br>
+    Substration= {{ num1 | minus: num2 }}
+    <br>
+    Multiplication={{ num1 | times: num2 }}
+    <br>
+    Division={{ num1 | divided_by: num2 }}
+    <br>
+
+    {% if num2 > num1 %}
+      {% if num2 > num3 %}
+        greator number is {{ num2 }}
+      {% else %}
+        greator number is {{ num3 }}
+      {% endif %}
+
+    {% elsif num1 > num2 %}
+      {% if num1 > num3 %}
+        greator number is {{ num1 }}
+      {% else %}
+        greator number in {{ num3 }}
+      {% endif %}
+    {% endif %}
+    <br>
+    {% if num1 == num2 %}
+      both are equal
+    {% else %}
+      both are different
+    {% endif %}
+    <br>
+    {% assign color = 'pink' %}
+
+    {% case color %}
+      {% when 'red' %}
+        color is red
+      {% when 'blue' %}
+        color is blue
+  
+        none of the above
+    {% endcase %}
+    <br>
+    {% for i in (1..10) %}
+      {% if forloop.first -%}
+        this is first<br>
+      {% elsif forloop.last -%}
+        this is last
+      {% else %}
+        the number is {{ forloop.index0 }}
+        <br>
+      {% endif %}
+    {% endfor %}
+    <br>
+    {% for product in collections.bags.products %}
+      {{ product.title }}
+      <br>
+    {% endfor %}
+  </div>
+</div>
+<br> 
+
+ } <style>
+  .title1{
+   font-size:32px;
+   font-weight:100;
+   color:white;
+   background:black;
+   text-align:center; 
+  } 
+</style>=
+
+{% if section.settings['scahama-image'] != blank %}
+  <img src="{{ section.settings.scahama-image| image_url: width: 600}}">
+{% endif %}
+<br>
+{% if section.settings.checker %}
+  <div style="text-align: {{ section.settings.text_position }}">{{ section.settings.textid }}</div>
+  <br>
+{% endif %}
+<div class="block">
+  {% for blocks in section.blocks %}
+    {% if blocks.settings.checking != blank %}
+      <a href="{{blocks.settings.image_url }}">
+        <img src="{{ blocks.settings.imaging | img_url: "400x"}}">
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="title1">{{ page.handle }}</div>

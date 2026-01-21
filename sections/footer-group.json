@@ -1,0 +1,153 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 84,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_liquid_6qDwwF": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "1757363867f9905a06": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d48924_zVQVDr": {
+          "type": "ai_gen_block_1d48924",
+          "settings": {
+            "min_column_width": 260,
+            "column_gap": 30,
+            "mobile_gap": 20,
+            "section_padding": 20,
+            "text_alignment": "left",
+            "background_color": "#ffffff",
+            "list_background_color": "#ffffff",
+            "title_color": "#000000",
+            "link_color": "#333333",
+            "link_hover_color": "#000000",
+            "border_color": "#ffffff",
+            "title_size": 18,
+            "title_weight": "600",
+            "link_size": 14,
+            "list_padding": 20,
+            "title_margin": 15,
+            "item_spacing": 10,
+            "link_padding": 5,
+            "border_radius": 8,
+            "border_width": 1,
+            "list_1_title": "",
+            "list_1_item_1_text": "bags",
+            "list_1_item_1_url": "shopify:\/\/collections\/bags",
+            "list_1_item_2_text": "shoes",
+            "list_1_item_2_url": "shopify:\/\/collections\/shoes",
+            "list_1_item_3_text": "lookbook",
+            "list_1_item_3_url": "shopify:\/\/collections\/lookbook",
+            "list_1_item_4_text": "",
+            "list_1_item_4_url": "",
+            "list_2_title": "Info",
+            "list_2_item_1_text": "About us",
+            "list_2_item_1_url": "",
+            "list_2_item_2_text": "contact",
+            "list_2_item_2_url": "",
+            "list_2_item_3_text": "Shipping policy",
+            "list_2_item_3_url": "",
+            "list_2_item_4_text": "Blog",
+            "list_2_item_4_url": "",
+            "list_3_title": "our mission",
+            "list_3_item_1_text": "Quality materials, good designs, craftsmanship and sustainability.",
+            "list_3_item_1_url": "",
+            "list_3_item_2_text": "",
+            "list_3_item_2_url": "",
+            "list_3_item_3_text": "",
+            "list_3_item_3_url": "",
+            "list_3_item_4_text": "",
+            "list_3_item_4_url": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d48924_zVQVDr"
+      ],
+      "settings": {}
+    },
+    "1757365004b0f44939": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_3a41ced_zYk6yf": {
+          "type": "ai_gen_block_3a41ced",
+          "settings": {
+            "title": "Subscribe to our emails",
+            "email_placeholder": "Enter your email address",
+            "email_padding": 12,
+            "email_border_width": 2,
+            "email_border_radius": 4,
+            "email_border_color": "#cccccc",
+            "email_hover_border_color": "#000000",
+            "email_background_color": "#ffffff",
+            "email_hover_background_color": "#f8f8f8",
+            "facebook_url": "",
+            "instagram_url": "",
+            "youtube_url": "",
+            "tiktok_url": "",
+            "twitter_url": "",
+            "background_color": "#ffffff",
+            "title_color": "#666666",
+            "email_color": "#666666",
+            "placeholder_color": "#999999",
+            "icon_background": "#ffffff",
+            "icon_hover_background": "#f0f0f0",
+            "title_size": 20,
+            "email_size": 16,
+            "padding": 40,
+            "border_radius": 8,
+            "icon_size": 45,
+            "icon_border_radius": 8,
+            "social_gap": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_3a41ced_zYk6yf"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer",
+    "custom_liquid_6qDwwF",
+    "1757363867f9905a06",
+    "1757365004b0f44939"
+  ]
+}

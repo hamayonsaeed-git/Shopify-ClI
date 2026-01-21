@@ -1,0 +1,187 @@
+<section class="vera-hero-section">
+  <div
+    class="vera-hero-bg"
+    style="background-image: url({{ section.settings.bg_image | image_url: width: 2000 }});"
+  >
+    <div class="vera-hero-content page-width">
+      {% if section.settings.heading != blank %}
+        <h1 class="vera-hero-heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="vera-hero-subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="vera-hero-button">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+<style>
+.vera-hero-section {
+  width: 100%;
+}
+.vera-hero-bg {
+  position: relative;
+  min-height: 75vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+/* 🔥 REAL OVERLAY */
+.vera-hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+/* Content ABOVE overlay */
+.vera-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+h1.vera-hero-heading {
+    font-family: 'Tenor Sans';
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 40px;
+    letter-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin:0;2
+}
+
+p.vera-hero-subheading {
+    font-family: 'Outfit';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: 0.54px;
+    text-align: center;
+    vertical-align: middle;
+    color: #FFFFFF;
+}
+a.vera-hero-button {
+    font-family: 'Outfit';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #1E1E1E;
+    text-decoration: none;
+    background: rgba(251, 243, 230, 1);
+    padding: 10px 30px;
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vera-hero-bg {
+        min-height: 60vh;
+    }
+
+    h1.vera-hero-heading {
+        font-size: 36px;
+        line-height: 32px;
+    }
+
+    p.vera-hero-subheading {
+        font-size: 16px;
+        line-height: 22px;
+        margin: 15px 0;
+    }
+
+    a.vera-hero-button {
+        font-size: 14px;
+        padding: 8px 20px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vera-hero-bg {
+        min-height: 50vh;
+    }
+
+    h1.vera-hero-heading {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    p.vera-hero-subheading {
+        font-size: 14px;
+        line-height: 20px;
+        margin: 10px 0;
+    }
+
+    a.vera-hero-button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+
+</style>
+
+{% schema %}
+{
+  "name": "Luxury Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "LUXURY, DELIVERED TO YOU"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop curated, high-quality products delivered straight to your door. Experience Vera Noir today."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "DISCOVER OUR STORY"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Hero Banner"
+    }
+  ]
+}
+{% endschema %}

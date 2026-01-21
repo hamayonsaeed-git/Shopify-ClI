@@ -1,0 +1,77 @@
+{% include 'custom-block-code' %}
+<div class="schema output" style="text-align:{{ settings.text_align }};" >
+  <p>{{ settings.text_box }}</p>
+</div>
+<div class="schema output">
+  {% if settings.checkbox_schema == true %}
+    {{ settings.richtext_box }}
+  {% else %}
+    <p>the checkbox is uncheck</p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "index",
+  "settings": [
+    {
+      "type": "text",
+      "id": "textid",
+      "label": "Enter Text",
+      "default": "I am hamayon "
+    },
+    {
+      "type": "checkbox",
+      "id": "checker",
+      "label": "Enable Text",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "position your text",
+      "options": [
+        { "value": "left", "label": "LEFT" },
+        { "value": "center", "label": "CENTER" },
+        { "value": "right", "label": "RIGHT" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "image_picker",
+      "id": "scahama-image",
+      "label": "SELECT IMAGE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery",
+      "name": "Gallery",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "checking",
+          "label": "Enable Text",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "imaging",
+          "label": "SELECT IMAGE"
+        },
+        {
+          "type": "url",
+          "id": "image_url",
+          "label": "GALLERY IMAGE URL"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "index"
+    }
+  ]
+}
+{% endschema %}

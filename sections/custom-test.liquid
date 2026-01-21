@@ -1,0 +1,29 @@
+<style>
+  .guide-headinging {     font-family: "Playfair Display", serif;     font-size: 42px;     font-weight: 500;     line-height: 50.4px;     letter-spacing: -0.02em;     text-align: left;     text-underline-position: from-font;     text-decoration-skip-ink: none;     color:#041222;        }   .main-logo-care {     font-family: "Playfair Display", serif;     font-size: 20px;     font-weight: 500;     line-height: 23.6px;     letter-spacing: -0.02em;     text-underline-position: from-font;     text-decoration-skip-ink: none;     color:#041222;   }   .heading-care-x img {     width: 30px;     height: 30px;     object-fit: contain !important;   }   .care-desciprion {     font-family: "Raleway", sans-serif;     font-size: 16px;     font-weight: 400;     line-height: 21.76px;     letter-spacing: -0.01em;     text-underline-position: from-font;     text-decoration-skip-ink: none;     color:#041222;   }   .botyh-care ul {     padding: 0;   }   .main-logo-care {     width: 170px;   }   .botyh-care li {     display: flex;     gap: 40px;     border-bottom: 1px solid #594429;     padding: 12px 0px;   }   .fisty-lox-s {     display: flex;     gap: 20px;   }   @media screen and (max-width:800px) {     .botyh-care li {         gap: 20px;         flex-wrap: wrap;     }     .guide-headinging {         font-size: 21px;         margin-top: 30px;         line-height:35px;     }      }
+</style>
+{% if product.metafields.custom.care_guide %}
+  {% assign metaobject = product.metafields.custom.care_guide.value %}
+  {% comment %} {{ metaobject | json }}   {% endcomment %}
+  <div class="page-width">
+    <div class="main-care-quide">
+      <div class="guide-headinging">{{ metaobject.main_heading }}</div>
+      <div class="botyh-care">
+        <ul>
+          {% assign heading = metaobject.care_heading.value %}
+          {% assign care_descriptionx = metaobject.care_description.value %}
+          {% for care_logox in metaobject.care_logo.value %}
+            <li>
+              {% assign index = forloop.index0 %}
+              <div class="fisty-lox-s">
+                <div class="heading-care-x"><img src="{{ care_logox.image | image_url }}" alt="Metaobject Image"></div>
+                <div class="main-logo-care">{{ heading[index] }}</div>
+              </div>
+              <div class="care-desciprion">{{ care_descriptionx[index] }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %} {   "name": "Product Care Guide",   "settings": [],   "presets": [     {       "name": "Product Care Guide"     }   ] } {% endschema %}

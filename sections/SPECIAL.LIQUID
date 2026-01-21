@@ -1,0 +1,105 @@
+<h1>{{ page.title }}</h1>
+<h2>Article schema</h2>
+{% assign article = section.settings.main_article %}
+{% if article %}
+  Article title : {{ article.title -}}
+  <br>
+
+  <img src="{{article.image.src | image_url : width:500 }}">
+
+  Artical Tags : <br>
+  {% for tag in article.tags %}
+    {{ tag }}
+  {% endfor %}
+  {{ article.created_at | date: '%a, %b, %d, %y,' }}
+
+  {% comment %} this is for BLOG {% endcomment %}
+
+  <h2>BLOG schema</h2>
+  {% assign blog = section.settings.show_blog %}
+  {{ blog }}
+  {% for article in blog.articles %}
+    Article title : {{ article.title -}}
+    <br>
+
+    <img src="{{article.image.src | image_url : width:500 }}">
+  {% endfor %}
+{% endif%}
+
+{% comment %} this is for unless {% endcomment %}
+
+<h2>unless in shopify</h2>
+{% assign cars = 'toyota,honda,suzuki,furtuner,royal roys,lambo' %}
+
+All cars are {{ cars}}<br>
+<br>
+{% assign one_car = cars | split:","%}
+{%for car in one_car %} 
+   {%if car =="toyota" %}
+    my car is {{ car }}<br>
+    {%endif %}
+    {%unless car== "toyota" %}
+      other cars is :{{car }}<br>
+{%endunless %}
+{%endfor %}
+
+
+
+{%assign fruits = "apples, oranges, peaches" | split:"," %}<br>
+{%assign vegetables= " carrots, potatos, tomatos" | split: "," %}
+{%assign everything = fruits | concat:vegetables %}
+
+{{fruits|join:"and" |replace:"apple", "mango" }}<br>
+
+{% for item in everything %}
+  {{item }}<br>
+{% endfor %}
+ {% comment %} I am using filters {% endcomment %}
+
+{{"janvery 13,2008" |  date: "%b %d, %y" }}
+{{"jbbcd nuidhc & ' cjnc jncnebnn xj '?" | escape }}
+{{ "3.5" | floor }}
+<br>
+{{ "1 < 2 & 3" | escape_once }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% schema %} 
+{
+  "name": "SPECIAL",
+  "settings": [
+    {
+      "type": "article",
+      "label": "ARTICLE ",
+      "id": "main_article"
+    },
+    {
+      "type": "blog",
+      "id": "show_block",
+      "label": "select blog"
+    },
+    {
+  "type": "product",
+  "id": "product",
+  "label": "Product"
+}
+  ],
+  "presets": [
+    {
+      "name": "SPECIAL"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+
+
+<div class="simple-section">
+    {% if section.settings.section_title %}
+    <h2>{{ section.settings.section_title | escape }}</h2>
+    <p>{{ section.settings.section_content | escape }}</p>
+    {% endif %}
+</div>
+
+
+
+
+
+
+{% schema %}
+{
+    "name": "Simple Section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title",
+            "default": "Welcome to Our Store"
+        },
+        {
+            "type": "textarea",
+            "id": "section_content",
+            "label": "Section Content",
+            "default": "This is a simple section created using Shopify Liquid."
+        }
+    ],
+    "presets": [
+        {
+            "name": "Simple Section",
+            "category": "Custom"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,222 @@
+<!-- Swiper CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+<!-- Main Slider -->
+<div class="swiper glarry-slider">
+  <div class="swiper-wrapper">
+    {%- assign product = section.settings.product -%}
+
+    {% if product != blank and product.media.size > 0 %}
+      {% for media in product.media %}
+        {% if media.media_type == 'image' %}
+          <div class="swiper-slide">
+            <img
+              src="{{ media | image_url: width: 900 }}"
+              alt="{{ media.alt | escape }}"
+              loading="lazy"
+            >
+          </div>
+        {% elsif media.media_type == 'video' %}
+          <div class="swiper-slide">
+          {{ media | video_tag: autoplay: true, loop: true, muted: true, controls: true }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Navigation -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+<!-- Thumbnail Slider -->
+<div class="swiper glarry-thumbs">
+  <div class="swiper-wrapper">
+    {% if product != blank and product.media.size > 0 %}
+      {% for media in product.media %}
+        {% if media.media_type == 'image' %}
+          <div class="swiper-slide">
+            <img
+              src="{{ media | image_url: width: 150 }}"
+              alt="{{ media.alt | escape }}"
+              loading="lazy"
+            >
+          </div>
+        {% elsif media.media_type == 'video' %}
+          <div class="swiper-slide">
+            {{ media | video_tag }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% comment %} this is for product metafield {% endcomment %}
+ {%- if product.metafields.instructions != blank -%}
+  <ul>
+    {%- for field in product.metafields.instructions -%}
+      <li>{{ field | first }}: {{ field | last }}</li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+
+
+ {% comment %} this is for varients of product {% endcomment %}
+
+{%- unless product.has_only_default_variant -%}
+  {%- for option in product.options_with_values -%}
+
+    {%- if section.settings.product_selector == 'radio' -%}
+      <fieldset id="ProductSelect-option-{{ forloop.index0 }}" name="{{ option.name | handleize }}">
+        <legend>
+          {{ option.name | escape }}
+        </legend>
+        {%- for value in option.values -%}
+          <!-- Check to see if there's a product size option. If there is a size, check to see if there's any availble for purchase. If not, set the variat control in a "disabled" state. -->
+          {%- assign variant_label_state = true -%}
+
+          {%- if product.options.size == 1 -%}
+            {%- unless product.variants[forloop.index0].available -%}
+              {%- assign variant_label_state = false -%}
+            {%- endunless -%}
+          {%- endif -%}
+
+          <input type="radio"
+            {% if option.selected_value == value %} checked="checked"{% endif %}
+            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+            value="{{ value | escape }}"
+            data-index="option{{ forloop.index }}"
+            name="{{ option.name | handleize }}"
+            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+            {{ value | escape }}
+          </label>
+        {%- endfor -%}
+      </fieldset>
+    {%- else -%}
+      <label for="ProductSelect-option-{{ forloop.index0 }}">
+        {{ option.name | escape }}
+      </label>
+      <select id="ProductSelect-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+        {%- for value in option.values -%}
+          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>
+            {{ value | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+
+  {%- endfor -%}
+{%- endunless -%}
+
+<!-- CSS -->
+<style>
+/* Main Slider */
+.glarry-slider {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+}
+
+.glarry-slider .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glarry-slider img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 500px;
+}
+
+/* Navigation buttons */
+.glarry-slider .swiper-button-prev,
+.glarry-slider .swiper-button-next {
+  color: #000;
+  z-index: 10;
+}
+
+/* Thumbnail Slider */
+.glarry-thumbs {
+  max-width: 500px;
+  margin: 10px auto 0;
+}
+
+.glarry-thumbs .swiper-slide {
+  width: 60px;
+  height: 60px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.glarry-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+  border: 2px solid #000;
+  border-radius: 4px;
+}
+
+.glarry-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .glarry-slider img {
+    max-height: 320px;
+  }
+}
+</style>
+
+<!-- JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const thumbsSwiper = new Swiper(".glarry-thumbs", {
+    spaceBetween: 10,
+    slidesPerView: 6,
+    watchSlidesProgress: true,
+    freeMode: true,
+    breakpoints: {
+      0: { slidesPerView: 3 },
+      480: { slidesPerView: 4 },
+      768: { slidesPerView: 5 },
+      1024: { slidesPerView: 6 }
+    }
+  });
+
+  const mainSwiper = new Swiper(".glarry-slider", {
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    thumbs: {
+      swiper: thumbsSwiper,
+    },
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Glarry Product Slider",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product 0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Glarry Product Slider"
+    }
+  ]
+}
+{% endschema %}

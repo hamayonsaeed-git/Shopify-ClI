@@ -1,0 +1,144 @@
+<div class="top">
+  <div class="top-container">
+    {% if section.settings.heading != blank %}
+      <h1>{{ section.settings.heading }}</h1>
+    {% endif %}
+
+    <div class="video-place" style="max-width: {{ section.settings.div-my-video-width }}px;">
+      {% if section.settings.my_video != blank %}
+        <video
+          {% if section.settings.loop %}
+            loop
+          {% endif %}
+          {% if section.settings.autoplay %}
+            autoplay
+          {% endif %}
+          {% if section.settings.muted %}
+            muted
+          {% endif %}
+          playsinline
+          {% comment %} poster="{{ section.settings.poster | image_url }}" {% endcomment %}
+          width="100%"
+        >
+          {% for source in section.settings.my_video.sources %}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {% endfor %}
+        </video>
+      {% else %}
+        <p>Please upload a video</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+<style>
+  
+  .top {
+    padding: 400px 20px;
+    text-align: center;
+  }
+  .top-container {
+    text-align: center;
+  }
+  .video-place {
+    margin: 0 auto;
+  }
+  .video-place video {
+    width: 100%;
+  }
+  .video-place p {
+    font-size: 18px;
+    color: #666;
+  }
+  .top h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  .@media (max-width: 768px) {
+    .top {
+      padding: 200px 10px;
+    }
+    .top h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+  }
+  .@media (max-width: 480px) {
+    .top {
+      padding: 100px 5px;
+    }
+    .top h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+  }
+    .@media (max-width: 320px) {
+    .top {
+      padding: 50px 2px;
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Video (Upload)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Watch Our Story"
+    },
+    {
+      "type": "video",
+      "id": "my_video",
+      "label": "Upload Video"
+    },
+    {
+      "type": "range",
+      "id": "div-my-video-width",
+      "min": 400,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Video Width",
+      "default": 1000
+    },
+    {
+      "type": "image_picker",
+      "id": "poster",
+      "label": "Poster Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Muted",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "playsinline",
+      "label": "Play Inline (Mobile)",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video (new)",
+      "category": "Media"
+    }
+  ]
+}
+{% endschema %}

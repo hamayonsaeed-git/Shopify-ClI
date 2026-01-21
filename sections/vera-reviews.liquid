@@ -1,0 +1,210 @@
+<div class="vera-reviews-page-width">
+    <div class="vera-reviews-heading">
+        <h2>{{ section.settings.rewiew_heading }}</h2>
+    </div>
+    <div class="vera-reviews-main-content">
+        {% for block in section.blocks %}
+        <div class="vera-reviews-block">
+            <div class="vera-reviews-client-info">
+            <div class="vera-reviews-client-image">
+            {% if block.settings.client_image != blank %}
+                <img src="{{ block.settings.client_image | img_url: 'medium' }}" alt="{{ block.settings.client_name }}">
+            {% endif %}
+            </div>
+            <div class="vera-reviews-client-details">
+            <div class="vera-reviews-client-name">
+            <h3>{{ block.settings.client_name }}</h3>
+            </div>
+            <div class="vera-reviews-logo-stars">
+            {% if block.settings.logo_stars != blank %}
+                <img src="{{ block.settings.logo_stars | img_url: 'medium' }}" alt="Stars">
+            {% endif %}
+            </div>
+            </div>
+            </div>
+            <div class="vera-reviews-message">
+            <p>{{ block.settings.rewiew_message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<style>
+
+.vera-reviews{
+    background-color: #E6C7AA80;
+    padding: 50px 0;
+}
+.vera-reviews-page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.vera-reviews-heading h2 {
+    font-family: 'Tenor Sans';
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+.vera-reviews-block {
+    background: #FFFFFF;
+    padding: 20px;
+    width: 100%;
+}
+
+
+.vera-reviews-main-content {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    
+    margin-bottom: 30px;
+
+}
+.vera-reviews-client-info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.vera-reviews-client-name h3 {
+    margin: 0;
+    font-family: 'Tenor Sans';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+}
+.vera-reviews-client-image img {
+    width: 100%;
+}
+.vera-reviews-message p {
+    font-family: 'Outfit';
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30.74px;
+}
+
+.vera-reviews-client-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.vera-reviews-client-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.vera-reviews-logo-stars img {
+    height: 20px;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    .vera-reviews-main-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .vera-reviews-heading h2 {
+        font-size: 32px;
+        line-height: 30px;
+    }
+
+    .vera-reviews-block {
+        padding: 15px;
+    }
+
+    .vera-reviews-client-name h3 {
+        font-size: 18px;
+    }
+
+    .vera-reviews-message p {
+        font-size: 16px;
+        line-height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vera-reviews-page-width {
+        padding: 15px;
+    }
+
+    .vera-reviews-heading h2 {
+        font-size: 24px;
+        line-height: 24px;
+    }
+
+    .vera-reviews-client-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .vera-reviews-message p {
+        font-size: 14px;
+    }
+}
+
+</style>
+
+
+
+
+
+
+
+{% schema %}
+  {
+  "name": "vera reviews section",
+  "class": "vera-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "rewiew_heading",
+      "label": "Rewiew Heading",
+      "default": "CLIENTS REVIEWS"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Rewiews blocks",
+      "type": "rewiews_blocks",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "client_image",
+          "label": "Client image"
+        },
+        {
+          "type": "text",
+          "id": "client_name",
+          "label": "Client name",
+          "default": "John Smith"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_stars",
+          "label": "logo stars"
+        },
+        {
+          "type": "textarea",
+          "id": "rewiew_message",
+          "label": "Rewiew message",
+          "default": "Shopping at Vera Noir was seamless! The product quality is exceptional and delivery was on point. I’ll definitely be coming back!q"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "vera reviews section"
+    }
+  ]
+}  
+{% endschema %}

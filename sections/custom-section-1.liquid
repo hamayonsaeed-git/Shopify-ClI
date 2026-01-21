@@ -1,0 +1,31 @@
+<div class="page-width">
+    <div class="grid">
+        <div class="grid-item">
+
+           {% if customer %}
+            <div class="section-header text-center">
+                <h1>[{customer.first_name}]</h1>
+                </div>
+                <div class="rte">
+                    {{ page.content }}
+                    </div>
+
+
+                {% else %}
+                    <div class="section-header text-center">
+                <h1>[{page.title}]</h1>
+                </div>
+                <div class="rte">
+                    <h2>Membership exclusive content.  <br><br>
+                    <a href="#">Please login here</a></h2>
+                    </div>
+
+
+                {% endif %}
+
+
+
+                    </div>
+                    </div>
+                    </div>
+

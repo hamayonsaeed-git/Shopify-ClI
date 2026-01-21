@@ -1,0 +1,90 @@
+<div class="page-width faq">
+  <h2 class="h1">{{ section.settings.headline | upcase }}</h2>
+
+  {% for block in section.blocks %}
+    <div class="faq_row">
+      <input
+        type="checkbox"
+        id="question-{{ forloop.index }}"
+        class="faq_toggle"
+      >
+
+      <label
+        for="question-{{ forloop.index }}"
+        class="faq_question"
+      >
+        {{ block.settings.question }}
+      </label>
+
+      <div class="faq_answer">
+        {{ block.settings.answer }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .faq_toggle {
+    display: none;
+  }
+
+  .faq_question {
+    display: block;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 15px;
+    background: #f5f5f5;
+    margin-top: 10px;
+  }
+
+  .faq_answer {
+    display: none;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-top: none;
+  }
+
+  /* CSS selector that shows the answer */
+  .faq_toggle:checked + .faq_question + .faq_answer {
+    display: block;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Headline",
+      "id": "headline",
+      "default": "Frequently Asked Question"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "question",
+      "type": "question",
+      "settings": [
+        {
+          "type": "text",
+          "label": "question",
+          "id": "question",
+          "default": "Write your question"
+        },
+        {
+          "type": "text",
+          "label": "answer",
+          "id": "answer",
+          "default": "write your answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ"
+    }
+  ]
+}
+{% endschema %}

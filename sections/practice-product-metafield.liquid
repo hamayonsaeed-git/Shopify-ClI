@@ -1,0 +1,240 @@
+{% assign related_products = product.metafields.custom.list_of_products.value %}
+
+{% if related_products != blank %}
+  <div class="related-products">
+    <h3>Related Products</h3>
+
+    <ul>
+      {% for p in related_products %}
+        <li>
+          <a href="{{ p.url }}">
+
+            {% if p.featured_image %}
+              <img
+                src="{{ p.featured_image | image_url: width: 200 }}"
+                alt="{{ p.title }}"
+              >
+            {% endif %}
+
+            <h4>{{ p.title }}</h4>
+            <p>{{ p.price | money }}</p>
+
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<div class="product-metafields">
+
+  {% if product.metafields.custom.dimmy_product_date_and_time != blank %}
+    <p>
+      Launch Date & Time:
+      {{ product.metafields.custom.dimmy_product_date_and_time | date: '%B %d, %Y %I:%M %p' }}
+    </p>
+  {% endif %}
+
+  {% if product.metafields.custom.checbox_product == true %}
+    <div class="banner">Special Offer!</div>
+  {% endif %}
+
+  {% if product.metafields.custom.dummy_text != blank %}
+    <p class="product-text">
+      {{ product.metafields.custom.dummy_text }}
+    </p>
+  {% endif %}
+
+  {% if product.metafields.custom.product_rich_text != blank %}
+    <div class="product-rich-text">
+      {{ product.metafields.custom.product_rich_text | metafield_tag }}
+    </div>
+  {% endif %}
+
+  {% if product.metafields.custom.dimmy_product_image != blank %}
+    <div class="product-image">
+      <img
+        src="{{ product.metafields.custom.dimmy_product_image | image_url: width: 600 }}"
+        alt="{{ product.title }}"
+      >
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Metafields",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Metafields",
+      "category": "product"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+    /* ===============================
+   RELATED PRODUCTS SECTION
+================================ */
+.related-products {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.related-products h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.related-products ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related-products li {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.related-products li:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.related-products a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 16px;
+}
+
+.related-products img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.related-products h4 {
+  font-size: 16px;
+  margin: 14px 0 6px;
+  font-weight: 500;
+}
+
+.related-products p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ===============================
+   PRODUCT METAFIELDS
+================================ */
+.product-metafields {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.product-metafields p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #333;
+}
+
+/* Banner */
+.banner {
+  background: linear-gradient(135deg, #ff7a18, #ffb347);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/* Rich text */
+.product-rich-text {
+  margin: 25px 0;
+}
+
+.product-rich-text p {
+  margin-bottom: 10px;
+}
+
+/* Product image */
+.product-image {
+  margin-top: 30px;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   TABLET (<= 1024px)
+================================ */
+@media (max-width: 1024px) {
+  .related-products ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .related-products h3 {
+    font-size: 24px;
+  }
+}
+
+/* ===============================
+   MOBILE (<= 768px)
+================================ */
+@media (max-width: 768px) {
+  .related-products ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .related-products img {
+    height: 170px;
+  }
+
+  .related-products h4 {
+    font-size: 15px;
+  }
+}
+
+/* ===============================
+   SMALL MOBILE (<= 480px)
+================================ */
+@media (max-width: 480px) {
+  .related-products ul {
+    grid-template-columns: 1fr;
+  }
+
+  .related-products h3 {
+    font-size: 22px;
+  }
+
+  .product-metafields {
+    margin: 40px auto;
+  }
+}
+
+
+
+    </style>

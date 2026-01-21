@@ -1,0 +1,63 @@
+<div class="collection-cart">
+  <!-- Hidden variant input -->
+  <input type="hidden"
+         value="{{ card_product.selected_or_first_available_variant.id }}"
+         class="product-variant-id"
+         name="id">
+
+  <!-- Always enabled button -->
+  <button type="button"
+          class="quick-add__submit button button--full-width button--secondary">
+    <span class="button-text">
+      {{ 'products.product.add_to_cart' | t }}
+    </span>
+  </button>
+</div>
+
+<script>
+  $(document).on('click', '.quick-add__submit', function(e) {
+    e.preventDefault();
+
+    const container = $(this).closest('.collection-cart');
+    const variantId = container.find('.product-variant-id').val();
+    const buttonText = container.find('.button-text');
+
+    if (!variantId) {
+      console.log('Variant ID missing');
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/cart/add.js",
+      data: { quantity: 1, id: variantId },
+      dataType: "json",
+      success: function(item) {
+        console.log('Added to cart:', item);
+
+        // Update Dawn cart drawer
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        const cartDrawer = document.querySelector('cart-drawer');
+        if (cartDrawer) cartDrawer.open();
+
+        // Update cart bubble
+        $.getJSON('/cart.js', function(cart) {
+          const bubble = $('#cart-icon-bubble span');
+          if (bubble.length) {
+            bubble.text(cart.item_count);
+          } else {
+            $('#cart-icon-bubble').append(`<div class="cart-count-bubble"><span>${cart.item_count}</span></div>`);
+          }
+        });
+
+        // Restore button text to "Add to cart"
+        buttonText.text("{{ 'products.product.add_to_cart' | t }}");
+      },
+      error: function(xhr) {
+        console.error('Add to cart error:', xhr.responseJSON ? xhr.responseJSON.description : xhr);
+        // Show sold out text dynamically
+        buttonText.text("{{ 'products.product.sold_out' | t }}");
+      }
+    });
+  });
+</script>

@@ -1,0 +1,101 @@
+{% schema %}
+{
+  "name": "Custom Slider",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "slide_1",
+      "label": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2",
+      "label": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3",
+      "label": "Slide 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-slider">
+  <div class="slides">
+    {% if section.settings.slide_1 %}
+      <div class="slide"><img src="{{ section.settings.slide_1 | img_url: '1600x' }}" ></div>
+    {% endif %}
+    {% if section.settings.slide_2 %}
+      <div class="slide"><img src="{{ section.settings.slide_2 | img_url: '1600x' }}" ></div>
+    {% endif %}
+    {% if section.settings.slide_3 %}
+      <div class="slide"><img src="{{ section.settings.slide_3 | img_url: '1600x' }}" ></div>
+    {% endif %}
+  </div>
+  <button class="prev">❮</button>
+  <button class="next">❯</button>
+</div>
+
+<style>
+.custom-slider {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+.custom-slider .slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.custom-slider .slide {
+  min-width: 100%;
+}
+.custom-slider img {
+  width: 100%;
+  display: block;
+}
+.custom-slider button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+.custom-slider .prev { left: 10px; }
+.custom-slider .next { right: 10px; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const slider = document.querySelector("#shopify-section-{{ section.id }} .slides");
+  const slides = slider.querySelectorAll(".slide");
+  let index = 0;
+
+  function showSlide(i) {
+    if (i >= slides.length) index = 0;
+    if (i < 0) index = slides.length - 1;
+    slider.style.transform = `translateX(${-index * 100}%)`;
+  }
+
+  document.querySelector("#shopify-section-{{ section.id }} .next").addEventListener("click", () => {
+    index++;
+    showSlide(index);
+  });
+
+  document.querySelector("#shopify-section-{{ section.id }} .prev").addEventListener("click", () => {
+    index--;
+    showSlide(index);
+  });
+});
+</script>

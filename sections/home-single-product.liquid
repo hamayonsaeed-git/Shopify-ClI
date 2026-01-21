@@ -1,0 +1,152 @@
+{% if section.settings.product != blank %}
+{% assign product = all_products[section.settings.product] %}
+
+<style>
+.home-product {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.home-product img {
+  width: 100%;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.color-variants {
+  display: flex;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.color-swatch input {
+  display: none;
+}
+
+.color-swatch span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+}
+
+.color-swatch input:checked + span {
+  border-color: #000;
+}
+</style>
+
+<div class="home-product">
+
+  <!-- IMAGE -->
+  <div>
+    <img
+      id="homeImage-{{ section.id }}"
+      src="{{ product.selected_or_first_available_variant.featured_image | image_url: width: 900 }}"
+      alt="{{ product.title }}"
+    >
+  </div>
+
+  <!-- INFO -->
+  <div>
+    <h2>{{ product.title }}</h2>
+
+    <div class="price" id="homePrice-{{ section.id }}">
+      {{ product.selected_or_first_available_variant.price | money }}
+    </div>
+
+    <form method="post" action="/cart/add">
+
+      <div class="color-variants">
+        {% for variant in product.variants %}
+
+          {% assign color_meta = variant.metafields.shopify["color-pattern"] %}
+          {% assign variant_image = variant.featured_image | image_url: width: 900 %}
+          {% assign color_name = variant.option1 | downcase %}
+
+          <label class="color-swatch">
+            <input
+              type="radio"
+              name="id"
+              value="{{ variant.id }}"
+              data-image="{{ variant_image }}"
+              data-price="{{ variant.price | money }}"
+              {% if forloop.first %}checked{% endif %}
+            >
+
+            {% comment %}
+            PRIORITY:
+            1️⃣ Color metafield (HEX)
+            2️⃣ Pattern image
+            3️⃣ Option name fallback
+            {% endcomment %}
+
+            {% if color_meta and color_meta.value %}
+              {% if color_meta.value.hex %}
+                <span style="background-color: {{ color_meta.value.hex }};"></span>
+              {% elsif color_meta.value.preview_image %}
+                <span style="background-image: url({{ color_meta.value.preview_image | image_url }});"></span>
+              {% else %}
+                <span style="background-color: {{ color_name }};"></span>
+              {% endif %}
+            {% else %}
+              <span style="background-color: {{ color_name }};"></span>
+            {% endif %}
+
+          </label>
+        {% endfor %}
+      </div>
+
+      <button type="submit">Add to Cart</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  const section = document.querySelector('#shopify-section-{{ section.id }}');
+  if (!section) return;
+
+  const image = section.querySelector('#homeImage-{{ section.id }}');
+  const price = section.querySelector('#homePrice-{{ section.id }}');
+  const radios = section.querySelectorAll('input[type="radio"][name="id"]');
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', function () {
+      if (this.dataset.image) image.src = this.dataset.image;
+      if (this.dataset.price) price.innerHTML = this.dataset.price;
+    });
+  });
+})();
+</script>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Home  Product ( FIX)",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Single Product (ABSOLUTE FIX)"
+    }
+  ]
+}
+{% endschema %}
